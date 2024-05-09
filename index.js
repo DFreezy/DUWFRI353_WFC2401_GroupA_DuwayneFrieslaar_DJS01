@@ -25,6 +25,7 @@ const calcNewVelocity = (initialVelocity, acceleration, time) => {
 }
 
 // Calculate new velocity
+// Ad a try catch mehod to catch any errors 
 try {
 
 
