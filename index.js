@@ -6,27 +6,43 @@
  */
 
 // Given Parameters
-const vel = 10000; // velocity (km/h)
-const acc = 3; // acceleration (m/s^2)
-const time = 3600; // seconds (1 hour)
-const d = 0; // distance (km)
-const fuel = 5000; // remaining fuel (kg)
-const fbr = 0.5; // fuel burn rate (kg/s)
+const velocityKmPerHr = 10000; // velocity (km/h)
+const accelerationMetersPerSecSq = 3; // acceleration (m/s^2)
+const timeSec = 3600; // seconds (1 hour)
+const distanceKm = 0; // distance (km)
+const remainingFuelKg = 5000; // remaining fuel (kg)
+const fuelBurnRateKgPerSec = 0.5; // fuel burn rate (kg/s)
 
-
-const d2 = d + (vel*time) //calcultes new distance
-const rf = fbr*time //calculates remaining fuel
-const vel2 = calcNewVel(acc, vel, time) //calculates new velocity based on acceleration
-
-// Pick up an error with how the function below is called and make it robust to such errors
-calcNewVel = (vel, acc, time) => { 
-  return vel + (acc*time)
+// Function to calculate new velocity (km/h) based on acceleration and time
+const calcNewVelocity = (initialVelocity, acceleration, time) => { 
+  // Convert velocity from km/h to m/s
+  const initialVelocityMetersPerSec = initialVelocity * (1000 / 3600);
+  // Calculate new velocity in m/s
+  const newVelocityMetersPerSec = initialVelocityMetersPerSec + (acceleration * time);
+  // Convert new velocity from m/s to km/h
+  const newVelocityKmPerHr = newVelocityMetersPerSec * (3600 / 1000);
+  return newVelocityKmPerHr;
 }
 
-console.log(`Corrected New Velocity: ${vel2} km/h`);
-console.log(`Corrected New Distance: ${d2} km`);
-console.log(`Corrected Remaining Fuel: ${rf} kg`);
+// Calculate new velocity
+try {
 
+
+const newVelocityKmPerHr = calcNewVelocity(velocityKmPerHr, accelerationMetersPerSecSq, timeSec);
+
+// Calculate new distance
+const newDistanceKm = distanceKm + (velocityKmPerHr * (timeSec / 3600));
+
+// Calculate remaining fuel
+const newRemainingFuelKg = remainingFuelKg - (fuelBurnRateKgPerSec * timeSec);
+
+console.log(`Corrected New Velocity: Approximately ${newVelocityKmPerHr.toFixed(0)} km/h`);
+console.log(`Corrected New Distance: Approximately ${newDistanceKm.toFixed(0)} km`);
+console.log(`Corrected Remaining Fuel: Approximately ${newRemainingFuelKg.toFixed(0)} kg`);
+
+} catch (error) {
+  console.error('An error occurred:', error.message);
+}
 
 
 
