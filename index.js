@@ -14,7 +14,6 @@ const calcNewVelocity = (initialVelocity, acceleration, time) => {
 
   const newVelocityMetersPerSec = initialVelocityMetersPerSec + (acceleration * time);
   // Convert new velocity from m/s to km/h
-
   const newVelocityKmPerHr = newVelocityMetersPerSec * (3600 / 1000);
   return newVelocityKmPerHr;
 }
